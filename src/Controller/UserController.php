@@ -31,12 +31,14 @@ class UserController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+
             $entityManager->persist($user);
+        
             $entityManager->flush();
 
-            return $this->redirectToRoute('app_user_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('app_home');
         }
-
+    
         return $this->renderForm('user/new.html.twig', [
             'user' => $user,
             'form' => $form,

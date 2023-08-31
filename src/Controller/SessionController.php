@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Session;
 use App\Form\SessionType;
 use App\Repository\SessionRepository;
+use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -17,8 +18,11 @@ class SessionController extends AbstractController
     #[Route('/', name: 'app_session_index', methods: ['GET'])]
     public function index(SessionRepository $sessionRepository): Response
     {
+
+        $user = $this->getUser();
         return $this->render('session/index.html.twig', [
             'sessions' => $sessionRepository->findAll(),
+            'user' => $user,
         ]);
     }
 
